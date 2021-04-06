@@ -1,0 +1,10 @@
+package com.zaharov.mykola.uniwersytet.second.service.interfaces;
+
+import com.zaharov.mykola.uniwersytet.second.model.ResponseModel;
+import com.zaharov.mykola.uniwersytet.second.model.StudentModel;
+
+public interface IStudentService {
+    ResponseModel create(StudentModel studentModel);
+    ResponseModel getAll();
+    ResponseModel delete(Long id);
+}
