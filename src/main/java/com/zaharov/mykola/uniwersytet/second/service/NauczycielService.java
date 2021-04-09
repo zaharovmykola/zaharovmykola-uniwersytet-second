@@ -65,23 +65,6 @@ public class NauczycielService {
                 .build();
     }
 
-//    public ResponseModel delete(Long id) {
-//        Optional<Nauczyciel> nauczycielOptional = nauczycielDao.findById(id);
-//        if (nauczycielOptional.isPresent()){
-//            Nauczyciel nauczyciel = nauczycielOptional.get();
-//            nauczycielDao.delete(nauczyciel);
-//            return ResponseModel.builder()
-//                    .status(ResponseModel.SUCCESS_STATUS)
-//                    .message(String.format("Nauczyciel #%s Deleted", nauczyciel.getImie()))
-//                    .build();
-//        } else {
-//            return ResponseModel.builder()
-//                    .status(ResponseModel.FAIL_STATUS)
-//                    .message(String.format("Nauczyciel #%d Not Found", id))
-//                    .build();
-//        }
-//    }
-
     public ResponseModel delete(Long id) {
         Optional<Nauczyciel> nauczycielOptional = nauczycielDao.findById(id);
         if (nauczycielOptional.isPresent()){
