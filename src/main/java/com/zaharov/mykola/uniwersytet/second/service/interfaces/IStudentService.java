@@ -7,4 +7,7 @@ public interface IStudentService {
     ResponseModel create(StudentModel studentModel);
     ResponseModel getAll();
     ResponseModel delete(Long id);
+    ResponseModel findStudentByImie(String imie);
+    ResponseModel findStudentByNazwisko(String nazwisko);
+    ResponseModel update(StudentModel studentModel);
 }

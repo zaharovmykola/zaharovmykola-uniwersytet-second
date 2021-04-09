@@ -1,6 +1,8 @@
 package com.zaharov.mykola.uniwersytet.second.service;
 
+import com.zaharov.mykola.uniwersytet.second.dao.NauczycielHibernateDAO;
 import com.zaharov.mykola.uniwersytet.second.dao.StudentHibernateDAO;
+import com.zaharov.mykola.uniwersytet.second.entity.Nauczyciel;
 import com.zaharov.mykola.uniwersytet.second.entity.Student;
 import com.zaharov.mykola.uniwersytet.second.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +24,9 @@ public class StudentService {
 
     @Autowired
     private StudentHibernateDAO studentDao;
+
+    @Autowired
+    private NauczycielHibernateDAO nauczycielDao;
 
     public ResponseModel create(@Valid StudentModel studentModel) {
         Student student =
@@ -59,6 +65,17 @@ public class StudentService {
         Optional<Student> studentOptional = studentDao.findById(id);
         if (studentOptional.isPresent()){
             Student student = studentOptional.get();
+            Set<Nauczyciel> nauczyciele = student.getSetOfNauczyciele();
+            if (nauczyciele != null) {
+                nauczyciele.forEach(nauczyciel -> {
+                    nauczyciel.getSetOfStudents().stream()
+                            .filter(nauczycielStudent -> nauczycielStudent.getId().equals(student.getId()))
+                            .forEach(nauczycielStudent -> {
+                                nauczyciel.getSetOfStudents().remove(nauczycielStudent);
+                                nauczycielDao.save(nauczyciel);
+                            });
+                });
+            }
             studentDao.delete(student);
             return ResponseModel.builder()
                     .status(ResponseModel.SUCCESS_STATUS)

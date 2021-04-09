@@ -48,11 +48,6 @@ public class NauczycielController {
         return new ResponseEntity<>(service.getAllStudents(id), HttpStatus.OK);
     }
 
-    @PatchMapping("/{nauczycielId}/students/{studentId}")
-    public ResponseEntity<ResponseModel> create(@PathVariable Long nauczycielId, @PathVariable Long studentId) {
-        return new ResponseEntity<>(service.addStudent(nauczycielId, studentId), HttpStatus.CREATED);
-    }
-
     @GetMapping("/byImie/{imie}")
     public ResponseEntity<ResponseModel> getNauczycielByImie(@PathVariable String imie) {
         return new ResponseEntity<>(service.getNauczycielByImie(imie), HttpStatus.OK);

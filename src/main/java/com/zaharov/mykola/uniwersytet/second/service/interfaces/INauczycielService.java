@@ -7,4 +7,7 @@ public interface INauczycielService {
     ResponseModel create(NauczycielModel nauczycielModel);
     ResponseModel getAll();
     ResponseModel delete(Long id);
+    ResponseModel findNauczycielByImie(String imie);
+    ResponseModel findNauczycielByNazwisko(String nazwisko);
+    ResponseModel update(NauczycielModel nauczycielModel);
 }
